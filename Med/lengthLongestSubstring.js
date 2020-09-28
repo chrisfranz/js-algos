@@ -1,6 +1,4 @@
 function lengthLongestSubstring(string) {
-    
-
     let longestSubstringLength = 0;
     for (let a = 0; a < string.length; a++) {
         let charSet = new Set();
@@ -23,5 +21,33 @@ function lengthLongestSubstring(string) {
     return longestSubstringLength
 }
 
-const result = lengthLongestSubstring('abcdabcde');
+function lengthLongestSubstring2(string) {
+    let left = 0;
+    let right = 0;
+
+    let lengthLongestSubstring = 0;
+    const charSet = new Set();
+
+    let currentLongest = 0;
+    while (right < string.length) {
+        if (!charSet.has(string[right])) {
+            charSet.add(string[right]);
+            currentLongest++
+            if (currentLongest > lengthLongestSubstring) lengthLongestSubstring = currentLongest;
+            right++
+        } else {
+            while (charSet.has(string[right])) {
+                charSet.delete(string[left]);
+                currentLongest--
+                left++
+            }
+        }
+    }
+    return lengthLongestSubstring;
+}
+
+
+
+
+const result = lengthLongestSubstring2('abcdcefg');
 console.log('result: ', result);
