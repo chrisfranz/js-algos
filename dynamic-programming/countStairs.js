@@ -103,8 +103,31 @@ function countStairs3b(n, k) {
     const heapConverted = heapUsed / 1024 / 1024
     console.log(`Runtime: ${s} sec, ${ms / 1000000} ms`)
     console.log(`Memory usage: ${Math.round(heapConverted * 100) / 100} MB`)
+    console.log('CACHE LENGTH: ', cache.length)
     return cache[n];
 }
 
-const result = countStairs3b(4, 3);
+function countStairs3c(n, k) {
+    const cache = new Array(k).fill(0)
+    cache[0] = 1;
+
+    for (let i = 1; i <= n; i++) {
+        for (let j = 1; j < k; j++) {
+            if (i - j < 0) continue
+            console.log(j % k)
+            cache[i % k] += cache[Math.abs((i - j) % k)]
+        }
+        console.log('cache: ', cache)
+    }
+
+    const [ s, ms ] = process.hrtime(start);
+    const { heapUsed } = process.memoryUsage();
+    const heapConverted = heapUsed / 1024 / 1024
+    console.log(`Runtime: ${s} sec, ${ms / 1000000} ms`)
+    console.log(`Memory usage: ${Math.round(heapConverted * 100) / 100} MB`)
+    console.log('CACHE LENGTH: ', cache)
+    return cache[n % k];
+}
+
+const result = countStairs3c(7, 2);
 console.log('result: ', result);
