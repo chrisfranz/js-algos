@@ -58,4 +58,4 @@ const depth = findLCADepth(treeOne, 2, 8)
 
 
 
-// console.log('TREE: ', tree)
+// console.log('TREE: ', tree)  
