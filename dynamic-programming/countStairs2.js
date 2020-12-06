@@ -76,6 +76,27 @@ function countStairsNKs1(n, k) {
     return cache[n % k]
 }
 
-const result = countStairsNKs1(4, 4);
+function countStairsNKRS(n, k, rs) {
+    const cache = new Array(k).fill(0)
+    cache[0] = 1;
+
+    if (n <= 1) return cache[n]
+
+    for (let i = 1; i <= n; i++) {
+        for (let j = 1; j < k; j++) {
+            if (i - j < 0) continue
+
+            if (rs.includes(i)) {
+                cache[i % k] = 0
+            } else {
+                cache[i % k] += cache[(i - j) % k]
+            }
+        }
+        console.log('CACHE: ', cache)
+    }
+    return cache[n % k]
+}
+
+const result = countStairsNKRS(7, 3, [1, 3, 4]);
 
 console.log('RESULT: ', result)
